@@ -1,20 +1,28 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StatusBar, useColorScheme, View} from 'react-native';
-
 import {
-  Colors,
-  Header,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Switch,
+  useColorScheme,
+  View,
+} from 'react-native';
+
+import {ReloadInstructions} from 'react-native/Libraries/NewAppScreen';
 import {ListItem} from './components/ListItem';
 import {Pokemon} from './types/Pokemon';
+import {darkTheme, lightTheme} from '../styles/theme';
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [isDarkMode, setIsDarkMode] = useState(useColorScheme() === 'dark');
+  const theme = isDarkMode ? darkTheme : lightTheme;
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => {
+    setIsEnabled(previousState => !previousState);
+    setIsDarkMode(!isDarkMode);
   };
+
   const [pokemonData, setPokemonData] = useState<Pokemon[]>();
 
   const fetchData = async () => {
@@ -29,28 +37,31 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <View style={backgroundStyle}>
+    <SafeAreaView style={theme}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        backgroundColor={theme.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
+      <ScrollView contentInsetAdjustmentBehavior="automatic" style={theme}>
+        <Switch
+          style={{alignSelf: 'center'}}
+          onValueChange={() => toggleSwitch()}
+          value={isEnabled}
+          ios_backgroundColor={darkTheme.backgroundColor}
+        />
         <View
           style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            backgroundColor: theme.backgroundColor,
             paddingHorizontal: 10,
           }}>
           {pokemonData?.map((pokemon, index) => (
-            <ListItem key={index} title={pokemon.name}>
+            <ListItem theme={theme} key={index} title={pokemon.name}>
               <ReloadInstructions />
             </ListItem>
           ))}
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
