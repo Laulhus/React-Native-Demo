@@ -22,8 +22,10 @@ function App(): JSX.Element {
           name="FlatListScreen"
           component={FlatListScreen}
           options={{
-            animation: 'simple_push',
+            animation: 'slide_from_bottom',
             headerBackButtonMenuEnabled: true,
+            /*     headerTransparent: true,
+            headerTintColor: 'white', */
           }}
         />
       </Stack.Navigator>

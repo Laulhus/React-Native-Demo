@@ -56,12 +56,6 @@ function ScrollViewScreen(): JSX.Element {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={{paddingBottom: 50}}>
-        {/*    <Switch
-          style={{alignSelf: 'center'}}
-          onValueChange={() => toggleSwitch()}
-          value={isEnabled}
-          ios_backgroundColor={darkTheme.backgroundColor}
-        /> */}
         <View
           style={{
             backgroundColor: theme.backgroundColor,

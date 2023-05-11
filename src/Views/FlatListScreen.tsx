@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   SafeAreaView,
-  ScrollView,
   StatusBar,
+  StyleSheet,
+  Switch,
   useColorScheme,
   View,
 } from 'react-native';
@@ -13,13 +14,12 @@ import {Pokemon} from '../types/Pokemon';
 import {darkTheme, lightTheme} from '../../styles/theme';
 function FlatListScreen(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-  const theme = isDarkMode ? darkTheme : lightTheme;
-
-  /*   const [isEnabled, setIsEnabled] = useState(isDarkMode);
+  const [theme, setTheme] = useState(isDarkMode ? darkTheme : lightTheme);
+  const [isEnabled, setIsEnabled] = useState(isDarkMode);
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
     setTheme(theme === darkTheme ? lightTheme : darkTheme);
-  }; */
+  };
 
   const [pokemonData, setPokemonData] = useState<Pokemon[]>();
 
@@ -40,11 +40,14 @@ function FlatListScreen(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={theme.backgroundColor}
       />
-      <View
-        style={{
-          backgroundColor: theme.backgroundColor,
-          paddingHorizontal: 10,
-        }}>
+      {}
+      <View style={styles(theme).view}>
+        <Switch
+          style={{alignSelf: 'center'}}
+          onValueChange={() => toggleSwitch()}
+          value={isEnabled}
+          ios_backgroundColor={darkTheme.backgroundColor}
+        />
         <FlatList
           data={pokemonData}
           renderItem={({item}) => <ListItem theme={theme} title={item.name} />}
@@ -53,5 +56,14 @@ function FlatListScreen(): JSX.Element {
     </SafeAreaView>
   );
 }
+
+const styles = (theme: {color: string; backgroundColor: string}) =>
+  StyleSheet.create({
+    view: {
+      paddingTop: 30,
+      backgroundColor: theme.backgroundColor,
+      paddingHorizontal: 10,
+    },
+  });
 
 export default FlatListScreen;
