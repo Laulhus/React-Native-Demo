@@ -14,14 +14,14 @@ import {Pokemon} from './types/Pokemon';
 import {darkTheme, lightTheme} from '../styles/theme';
 
 function App(): JSX.Element {
-  const [isDarkMode, setIsDarkMode] = useState(useColorScheme() === 'dark');
+  const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? darkTheme : lightTheme;
 
-  const [isEnabled, setIsEnabled] = useState(false);
+  /*   const [isEnabled, setIsEnabled] = useState(isDarkMode);
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
-    setIsDarkMode(!isDarkMode);
-  };
+    setTheme(theme === darkTheme ? lightTheme : darkTheme);
+  }; */
 
   const [pokemonData, setPokemonData] = useState<Pokemon[]>();
 
@@ -43,12 +43,12 @@ function App(): JSX.Element {
         backgroundColor={theme.backgroundColor}
       />
       <ScrollView contentInsetAdjustmentBehavior="automatic" style={theme}>
-        <Switch
+        {/*    <Switch
           style={{alignSelf: 'center'}}
           onValueChange={() => toggleSwitch()}
           value={isEnabled}
           ios_backgroundColor={darkTheme.backgroundColor}
-        />
+        /> */}
         <View
           style={{
             backgroundColor: theme.backgroundColor,
