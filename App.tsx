@@ -7,6 +7,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import {ListItem} from './components/ListItem';
+import {Pokemon} from './types/Pokemon';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -14,11 +15,12 @@ function App(): JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-  const [pokemonData, setPokemonData] = useState();
+  const [pokemonData, setPokemonData] = useState<Pokemon[]>();
 
   const fetchData = async () => {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon');
     const data = await response.json();
+    console.log(data.results);
     setPokemonData(data.results);
   };
 

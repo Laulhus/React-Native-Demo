@@ -9,13 +9,14 @@ import {
   View,
   useColorScheme,
 } from 'react-native';
+import {Pokemon} from '../types/Pokemon';
 
 type ListItemProps = PropsWithChildren<{
   title: string;
 }>;
 export function ListItem({title}: ListItemProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-  const [pokemon, setPokemon] = useState();
+  const [pokemon, setPokemon] = useState<Pokemon>();
 
   const fetchPokemon = useCallback(async () => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${title}`);
