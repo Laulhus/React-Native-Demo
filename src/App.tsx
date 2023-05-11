@@ -8,9 +8,9 @@ const Stack = createNativeStackNavigator();
 function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="ScrollViewScreen">
         <Stack.Screen
-          name="ScrollView"
+          name="ScrollScreen"
           component={ScrollViewScreen}
           options={{
             animation: 'simple_push',
@@ -19,12 +19,11 @@ function App(): JSX.Element {
           }}
         />
         <Stack.Screen
-          name="FlatListView"
+          name="FlatListScreen"
           component={FlatListScreen}
           options={{
             animation: 'simple_push',
             headerBackButtonMenuEnabled: true,
-            headerShown: false,
           }}
         />
       </Stack.Navigator>

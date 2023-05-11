@@ -24,9 +24,9 @@ function FlatListScreen(): JSX.Element {
   const [pokemonData, setPokemonData] = useState<Pokemon[]>();
 
   const fetchData = async () => {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon');
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100');
     const data = await response.json();
-    console.log(data.results);
+
     setPokemonData(data.results);
   };
 
@@ -40,20 +40,16 @@ function FlatListScreen(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={theme.backgroundColor}
       />
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={theme}>
-        <View
-          style={{
-            backgroundColor: theme.backgroundColor,
-            paddingHorizontal: 10,
-          }}>
-          <FlatList
-            data={pokemonData}
-            renderItem={({item}) => (
-              <ListItem theme={theme} title={item.name} />
-            )}
-          />
-        </View>
-      </ScrollView>
+      <View
+        style={{
+          backgroundColor: theme.backgroundColor,
+          paddingHorizontal: 10,
+        }}>
+        <FlatList
+          data={pokemonData}
+          renderItem={({item}) => <ListItem theme={theme} title={item.name} />}
+        />
+      </View>
     </SafeAreaView>
   );
 }
